@@ -57,12 +57,11 @@ app.post('/login', async (req: express.Request, res: express.Response) => {
 	const { password } = req.body;
 
 	// const hash = '$2b$16$bGw4URlT02ODtdovLNQKROsULtsx7eFQAexrTZ9g7PoU7xF17EtQK'; // get hash from user record in database
-	const hash = process.env.ADMIN_HASH; // get hash from user record in database
-
+	const hash = config.ADMIN_HASH; // get hash from user record in database
 	// console.log('hash ', hash);
-	const result = await bcrypt.compare(password, hash);
+	const passwordIsCorrect = await bcrypt.compare(password, hash);
 
-	if (password === config.ADMIN_PASSWORD) {
+	if (passwordIsCorrect) {
 		req.session.user = 'admin' as any;
 		req.session.cookie.expires = new Date(
 			Date.now() + config.SECONDS_TILL_SESSION_TIMEOUT * 1000
