@@ -51,7 +51,7 @@ POST {{url}}/login
 content-type: application/json
 
 {
-	"password": "112"
+	"password": "3$GoalEasy"
 }
 
 ### GET CURRENT USER
